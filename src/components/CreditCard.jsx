@@ -27,7 +27,7 @@ export const CreditCard = ({ credit }) => {
 
             <div className='details'>
                 <div className='detail-item'>
-                    <span className='label'>Tasa de interés:</span>
+                    <span className='label'>Tasa de pago:</span>
                     <span className='value'>{interestRate} % mensual</span>
                 </div>
 
@@ -44,7 +44,7 @@ export const CreditCard = ({ credit }) => {
                 </div>
             </div>
 
-            <button className='btn-primary'>Solicitar Ahora</button>
+            <button className='btn-primary'>Solicitar Credito Ahora</button>
 
         </div>
 
