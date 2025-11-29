@@ -13,7 +13,7 @@ export const Navbar = () => {
             <div className='container'>
 
                 <link to="/" className={"nav-brand"}>
-                    CreditSmart
+                    CreditSmartdata
                 </link>
 
                 <ul className='nav-menu'>
