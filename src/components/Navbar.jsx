@@ -29,7 +29,7 @@ export const Navbar = () => {
                     </li>
                     <li>
                         <link to="/solicitar" className={isActive('/solicitar')}>
-                            Solicitar Créditos
+                            Solicitar 
                         </link>
                     </li>
 
