@@ -1,53 +1,48 @@
-import React from 'react'
-import { createDefaultImportMeta } from 'vite/module-runner'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-
-export const CreditCard = ({ credit }) => {
-
+const CreditCard = ({ credit }) => {
     const {
         name,
+        emoji,
         description,
+        interest,
         minAmount,
         maxAmount,
-        interestRate,
-        maxTerm,
-        requirements,
-        icon,
+        maxTerm
     } = credit;
 
+    const formatAmount = (amount) => {
+        return `$${Math.round(amount / 1000000)}M`;
+    };
+
     return (
-        <div className='credit-card'>
-
-            <div className='card-header'>
-                <span className='icon'>{icon}</span>
-                <h4>{name}</h4>
+        <div className="credit-card">
+            <div className="card-header">
+                <h4>{emoji}{name}</h4>
             </div>
-
-            <p className='description'>{description}</p>
-
-            <div className='details'>
-                <div className='detail-item'>
-                    <span className='label'>Tasa de pago:</span>
-                    <span className='value'>{interestRate} % mensual</span>
+            <p>{description}</p>
+            <div className="details">
+                <div className="datail-item">
+                    <span className="label">Tasa de interes</span>
+                    <span className="value highlight">{interest}% mensual</span>
                 </div>
-
-                <div className='detail-item'>
-                    <span className='label'>Monto:</span>
-                    <span className='value'>
-                        {formatCurrency(minAmount) - formatCurrency(maxAmount)}
+                <div className="datail-item">
+                    <span className="label">Monto</span>
+                    <span className="value">
+                        {formatAmount(minAmount)} - {formatAmount(maxAmount)}
                     </span>
                 </div>
-
-                <div className='detail-item'>
-                    <span className='label'>Plazo:</span>
-                    <span className='value'>Hasta {maxTerm} meses</span>
+                <div className="datail-item">
+                    <span className="label">Plazo</span>
+                    <span className="value">Hasta {maxTerm} meses</span>
                 </div>
             </div>
-
-            <button className='btn-primary'>Solicitar Credito Ahora</button>
-
+            <Link to="/solicitar" className="btn-primary" style={{ textDecoration: 'none', display: 'inline-block' }}>
+                Solicita tu credito ahora!
+            </Link>
         </div>
-
-
     );
-}
+};
+
+export default CreditCard;

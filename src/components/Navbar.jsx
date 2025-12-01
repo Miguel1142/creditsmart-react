@@ -1,24 +1,42 @@
-import React from 'react'
-import { useLocation } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-export const Navbar = () => {
 
-    const location = useLocation();
-
-    const isActive = (path) => {
-        return location.pathname === path ? 'active' : '';
-    }
+const Navbar = () => {
     return (
-        <nav className='navbar'>
-            <div className='container'>
-
-                <link>
-                </link>
-
+        <nav className="navbar navbar-expand-lg">
+            <div className="container-fluid">
+                <div className="container_CS">
+                    <img src="src\img\logo1.png" alt="CredySmartMS" className="logo-img" />
+                    CredySmartMS
+                </div>
+                <button
+                    className="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul className="navbar-nav">
+                        <li className="nav-item active">
+                            <Link className="nav-link" to="/">inicio</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/simulador">simulador</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/solicitar">solicitar crédito</Link>
+                        </li>
+                    </ul>
+                </div>
             </div>
-
         </nav>
-    )
-}
+    );
+};
 
-
+export default Navbar;
