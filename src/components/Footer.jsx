@@ -7,7 +7,7 @@ const Footer = () => {
             <div className="container">
                 <div className="footer-content">
                     <div className="footer-info">
-                        <img src="src\img\logo1.png" alt="CredySmartMS" className="footer-logo" />
+                        <img src="src\img\logo1.png" alt="CreditSmartMS" className="footer-logo" />
                         <p>Confianza, transparencia y soluciones financieras para tu vida.</p>
                     </div>
                     <div className="footer-links">
@@ -17,12 +17,12 @@ const Footer = () => {
                     <div className="footer-contact">
                         <h4>Contactanos</h4>
                         <p>📞 +57 321-78-900</p>
-                        <p>✉️ contacto@credysmart.com</p>
+                        <p>✉️ contacto@creditsmart.com</p>
                         <p>📍 Medellin,Antioquia, Colombia</p>
                     </div>
                 </div>
                 <div className="footer-bottom">
-                    <p>&copy; 2025 CredySmart. Todos los derechos reservados.</p>
+                    <p>&copy; 2025 CreditSmart. Todos los derechos reservados.</p>
                 </div>
             </div>
         </footer>
