@@ -89,6 +89,7 @@ If you are developing a production application, we recommend using TypeScript wi
 - Imagenes de la pagina web
 - ![image alt] (https://github.com/Miguel1142/creditsmart-react/blob/50004f9cd54cfd839312bc3013e72ab4983157dc/solicitar.png)
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ![image alt] (https://github.com/Miguel1142/creditsmart-react/blob/e112d2135d28c0e3266e5b42ce3b10886d33e188/simulador.png)
 
 ## React Compiler
 
