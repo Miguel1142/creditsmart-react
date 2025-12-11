@@ -48,12 +48,6 @@ Formulario completo que permite registrar:
   - Manejo de errores si no hay internet  
   - Actualización automática al agregar nuevas solicitudes  
 
-### ✔ Manejo de errores  
-El sistema incluye:
-- Mensajes al usuario cuando no hay conexión
-- Control de errores en lectura y escritura
-- Validación del formulario
-
 ### ✔ Variables de entorno (.env)  
 - Las credenciales de Firebase están protegidas  
 - El proyecto incluye **.env.example** como guía  
