@@ -57,3 +57,5 @@ Formulario completo que permite registrar:
 
 ## 📁 Estructura del proyecto
 
+![image alt](https://github.com/Miguel1142/creditsmart-react/blob/e8dfa465fd1144bbc328e44e0a3a2a6871271060/solicitudes.png)
+
