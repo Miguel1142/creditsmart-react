@@ -659,3 +659,7 @@ button:hover {
   margin-bottom: 2rem;
   font-weight: 700;
 }
+
+.solicitudes-page {
+    color: white;
+}

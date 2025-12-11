@@ -1,92 +1,65 @@
-# React + Vite
-
-CreditSmart – Aplicación Web Dinámica con React
-
-Estudiantes:
-
-Santiago Palacio Londoño
+# 💳 CreditSmart — Simulador y Gestor de Créditos con Firebase
+Desarrolladores
 Miguel Ángel Oyola Álvarez
+Santiago Palacio Londoño
 
+CreditSmart es una aplicación web desarrollada con **React + Firebase**, diseñada para gestionar solicitudes de crédito en línea.  
+El proyecto implementa **persistencia de datos en Firestore**, manejo de estado, operaciones **CRUD**, manejo de errores, rutas dinámicas y comunicación asíncrona con bases de datos NoSQL.
 
+---
 
-🚀 ## Descripción del Proyecto
+## 🚀 Tecnologías utilizadas
 
-CreditSmart es una aplicación web desarrollada con React + Vite, que transforma un diseño estático en una plataforma dinámica para la consulta, simulación y solicitud de créditos.
+- **React.js**
+- **Firebase v10+**
+  - Firestore Database
+- **Vite**
+- **React Router DOM**
+- **SweetAlert2**
+- **CSS personalizado**
 
-El proyecto aplica los principios fundamentales de:
+---
 
-Programación orientada a componentes
+## 📦 Características principales
 
-Manejo de estado con React Hooks
+### ✔ Simulador de créditos  
+El usuario puede:
+- Buscar créditos por nombre
+- Filtrar por monto, plazo o interés
+- Ver tarjetas con detalles
 
-Navegación con React Router
+### ✔ Solicitud de crédito  
+Formulario completo que permite registrar:
+- Datos personales  
+- Datos laborales  
+- Información del crédito solicitado  
+- Cálculo de cuota mensual  
+- Envío a Firestore
 
-Renderizado de listas dinámicas
+### ✔ Persistencia con Firestore (Base de Datos NoSQL)
+- Las solicitudes se guardan en la colección **`solicitudes`**
+- Los tipos de crédito se cargan desde la colección **`credits`**
 
-Implementación de búsquedas en tiempo real, filtros dinámicos, y formularios controlados
+### ✔ Página de Solicitudes  
+- Obtiene datos en tiempo real desde Firestore  
+- Muestra cada solicitud en formato de tarjeta  
+- Incluye:
+  - Loading mientras se cargan datos  
+  - Manejo de errores si no hay internet  
+  - Actualización automática al agregar nuevas solicitudes  
 
-Manipulación de datos en memoria
+### ✔ Manejo de errores  
+El sistema incluye:
+- Mensajes al usuario cuando no hay conexión
+- Control de errores en lectura y escritura
+- Validación del formulario
 
-🛠️ Tecnologías Usadas
+### ✔ Variables de entorno (.env)  
+- Las credenciales de Firebase están protegidas  
+- El proyecto incluye **.env.example** como guía  
+- `.gitignore` evita subir `.env` al repositorio  
 
-React (con Hooks)
+---
 
-Vite
+## 📁 Estructura del proyecto
 
-React Router
-
-JavaScript ES6+
-
-HTML5 + CSS3
-
-Node.js + npm
-
-🧩 Funcionalidades Principales
-🔹 1. Inicio – Lista Dinámica de Créditos
-
-Los productos se cargan desde un archivo creditsData.js
-
-Renderizado dinámico usando .map()
-
-Componente reutilizable CreditCard.jsx
-
-Props para enviar información a cada tarjeta
-
-tarjeta
-
-🔹 2. Simulador – Filtros y Búsqueda en Tiempo Real
-
-Búsqueda por nombre
-
-Filtro por monto máximo
-
-Filtro por tasa de interés (menor/mayor)
-
-Resultados actualizados automáticamente
-
-Mensaje “No hay créditos disponibles” cuando no hay coincidencias
-
-🔹 3. Solicitar Crédito – Formulario Controlado
-
-Formularios construidos con useState
-
-Validaciones en tiempo real
-
-Cálculo automático de cuota mensual estimada
-
-Resumen previo al envío
-
-Solicitud almacenada temporalmente en un array
-
-Mensaje de éxito y limpieza del formulario
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).

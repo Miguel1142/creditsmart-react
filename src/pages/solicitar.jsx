@@ -1,6 +1,13 @@
+// src/pages/solicitar.jsx
 import React, { useState } from 'react';
 import { creditOffers } from '../data/creditsData';
 import Swal from 'sweetalert2';
+
+// Firebase
+import { db } from '../firebase/config';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+
+
 
 const Request = () => {
     const [formData, setFormData] = useState({
@@ -18,6 +25,7 @@ const Request = () => {
     });
 
     const [monthlyPayment, setMonthlyPayment] = useState(0);
+    const [loading, setLoading] = useState(false);
 
     const creditTypeMap = {
         libre: "Crédito de Libre Inversión",
@@ -37,56 +45,94 @@ const Request = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
 
-        if (name === 'amountRequested' || name === 'termMonths' || name === 'creditType') {
-            const amount = parseFloat(formData.amountRequested);
-            const months = parseInt(formData.termMonths);
-            const creditType = name === 'creditType' ? value : formData.creditType;
+        // Actualizamos el estado y calculamos con el estado nuevo (evitamos stale state)
+        setFormData(prev => {
+            const next = { ...prev, [name]: value };
 
-            if (creditType && amount && months) {
-                const creditName = creditTypeMap[creditType];
-                const credit = creditOffers.find(c => c.name === creditName);
-                if (credit) {
-                    const payment = calculatePayment(amount, months, credit.interest);
-                    setMonthlyPayment(payment);
+            // Si algún campo relevante cambió, recalculamos cuota
+            if (name === 'amountRequested' || name === 'termMonths' || name === 'creditType') {
+                const amount = parseFloat(next.amountRequested);
+                const months = parseInt(next.termMonths);
+                const creditType = next.creditType;
+
+                if (creditType && amount && months) {
+                    const creditName = creditTypeMap[creditType];
+                    const credit = creditOffers.find(c => c.name === creditName);
+                    if (credit) {
+                        const payment = calculatePayment(amount, months, credit.interest);
+                        setMonthlyPayment(payment);
+                    } else {
+                        setMonthlyPayment(0);
+                    }
+                } else {
+                    setMonthlyPayment(0);
                 }
             }
-        }
+
+            return next;
+        });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
-        // Mensaje de éxito con SweetAlert
-        Swal.fire({
-            title: "¡Solicitud Enviada!",
-            text: "Gracias por confiar en CreditSmart. En menos de 24 horas recibirás una respuesta.",
-            icon: "success",
-            confirmButtonText: "Aceptar",
-            draggable: true
-        });
+        try {
+            // Guardar en Firestore (colección "requests")
+            await addDoc(collection(db, "solicitudes"), {
+                ...formData,
+                monthlyPayment,   // guarda también la cuota
+                createdAt: new Date() // fecha de registro
+            });
 
-        // Limpiesa del formulario
-        setFormData({
-            fullName: '',
-            idNumber: '',
-            email: '',
-            phone: '',
-            companyName: '',
-            jobTitle: '',
-            monthlyIncome: '',
-            creditType: '',
-            amountRequested: '',
-            termMonths: '',
-            creditPurpose: ''
-        });
-        setMonthlyPayment(0);
+            Swal.fire({
+                title: "¡Solicitud Enviada!",
+                text: "Gracias por confiar en CreditSmart. En menos de 24 horas recibirás una respuesta.",
+                icon: "success",
+                confirmButtonText: "Aceptar",
+                draggable: true
+            });
+
+            // Limpiar formulario
+            setFormData({
+                fullName: '',
+                idNumber: '',
+                email: '',
+                phone: '',
+                companyName: '',
+                jobTitle: '',
+                monthlyIncome: '',
+                creditType: '',
+                amountRequested: '',
+                termMonths: '',
+                creditPurpose: ''
+            });
+            setMonthlyPayment(0);
+        } catch (error) {
+            console.error("Error al enviar solicitud:", error);
+            Swal.fire({
+                title: "Error",
+                text: "No se pudo enviar la solicitud. Revisa tu conexión e intenta de nuevo.",
+                icon: "error",
+                confirmButtonText: "Entendido"
+            });
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <main className="container">
             <h2 className="form-title">Solicita tu Crédito</h2>
+
+            {/* Indicador de loading simple (puedes reemplazar por spinner si quieres) */}
+            {loading && (
+                <div className="loading-box">
+                    <p>Enviando solicitud...</p>
+                </div>
+            )}
+
             <form className="form-container" onSubmit={handleSubmit}>
                 <section className="form-section">
                     <h3>Datos Personales</h3>
@@ -210,6 +256,7 @@ const Request = () => {
                                 <option value="consumo">Crédito de Consumo</option>
                             </select>
                         </div>
+
                         <div className="form-group">
                             <label htmlFor="amountRequested">Monto Solicitado *</label>
                             <input
@@ -225,6 +272,7 @@ const Request = () => {
                             />
                         </div>
                     </div>
+
                     <div className="form-row">
                         <div className="form-group">
                             <label htmlFor="termMonths">Plazo (meses) *</label>
@@ -247,6 +295,7 @@ const Request = () => {
                                 <option value="120">120 meses</option>
                             </select>
                         </div>
+
                         <div className="form-group">
                             <label htmlFor="creditPurpose">Destino del Crédito *</label>
                             <textarea
@@ -271,7 +320,9 @@ const Request = () => {
                 </section>
 
                 <div className="form-buttons">
-                    <button type="submit" className="btn-primaryy">Enviar Solicitud</button>
+                    <button type="submit" className="btn-primaryy" disabled={loading}>
+                        {loading ? "Enviando..." : "Enviar Solicitud"}
+                    </button>
                     <button
                         type="button"
                         className="btn-clear"
@@ -310,4 +361,4 @@ const Request = () => {
     );
 };
 
-export default Request
+export default Request;
